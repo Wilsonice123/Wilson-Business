@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilson_Business - Loja Virtual</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0730eb 0%, #39c2e4 100%);
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .header-title {
+            flex: 1;
+            margin: 0;
+            font-size: 2.4em;
+            text-align: center;
+        }
+
+        .promo-button {
+            display: inline-block;
+            margin: 0;
+            padding: 12px 25px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .promo-button:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-switch button {
+            border: none;
+            background: transparent;
+            color: white;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background 0.3s ease;
+        }
+
+        .lang-switch button:hover,
+        .lang-switch button.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .saldo {
+            background: rgba(255, 215, 0, 0.95);
+            color: black;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .saldo::before {
+            content: '💰';
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-container input[type="search"] {
+            width: 300px;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            color: #111;
+        }
+
+        .search-container input[type="search"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        .search-container button {
+            padding: 12px 20px;
+            background: rgba(255, 215, 0, 0.95);
+            color: black;
+            border: 2px solid rgba(255, 215, 0, 0.95);
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-container button:hover {
+            background: #fd3015;
+            color: white;
+            border-color: #fd3015;
+        }
+
+        .promo-button {
+            display: inline-block;
+            margin: 0 auto 20px;
+            padding: 12px 25px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .promo-button:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+
+        .stars {
+            display: inline-flex;
+            justify-content: center;
+            gap: 3px;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+            color: #ffd700;
+        }
+
+        .stars span {
+            display: inline-block;
+        }
+
+        .desconto {
+            display: block;
+            margin-top: 6px;
+            color: #ffeb3b;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .produto {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .produto:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .produto img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .produto h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .produto p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .produto .preco {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #ffeb3b;
+        }
+
+        .produto a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            background: #22c55e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .produto a:hover {
+            background: #16a34a;
+            transform: scale(1.05);
+        }
+
+        .produto a:nth-child(2) {
+            background: #007bff;
+        }
+
+        .produto a:nth-child(2):hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .produtos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .produtos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="top-bar">
+            <a href="#" class="promo-button">Ver Promoções</a>
+            <h1 class="header-title">Wilson Business</h1>
+            <div class="header-actions">
+                <div class="lang-switch">
+                    <button class="active">PT</button>
+                    <button>EN</button>
+                </div>
+                <div class="saldo" id="saldo">0 KZ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="search" placeholder="Pesquisar artigos...">
+        <button type="submit">Pesquisar</button>
+    </div>
+
+    <h2 style="text-align: center; margin: 20px 0;">ARTIGOS DISPONÍVEIS NA LOJA</h2>
+
+    <div class="produtos-grid">
+        <div class="produto">
+            <img src="c:\Users\alberto\Documents\Projeto Loja virtual\2940d0d7b29b8f9ffc245dd7f4a4b130.jpg" alt="Iphone 17 Pro Max">
+            <h3>Iphone 17 Pro Max</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>512GB</p>
+            <p class="preco">2.110.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=iphone+17+Pro+Max" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Documents\Projeto Loja virtual\IMG-20260327-WA0591_redimensionado.jpg" alt="JETOUR X70">
+            <h3>JETOUR X70</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>ORIGEM AMERICANA</p>
+            <p class="preco">18.890.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Jetour" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Documents\Projeto Loja virtual\IMG-20260326-WA1288_redimensionado.jpg" alt="LAND CRUISER TOYOTA">
+            <h3>LAND CRUISER TOYOTA</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>ORIGEM PORTUGUESA</p>
+            <p class="preco">23.700.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Lander+Cruiser+Prado+V8" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Downloads\5ec3150e6cf46192395ed1d04071d185_redimensionado.jpg" alt="SAMSUNG ULTRA S25">
+            <h3>SAMSUNG ULTRA S25</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>ORIGEM AMERICANA</p>
+            <p class="preco">1.800.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Samsung+Ultra+S25" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Downloads\IMG-20260327-WA0414_redimensionado.jpg" alt="SUZUKI EXPRESSO">
+            <h3>SUZUKI EXPRESSO</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span></div>
+            <p>ORIGEM EUROPEIA</p>
+            <p class="preco">9.800.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Suzuki+Expresso" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Downloads\transferir (1)_redimensionado.jpg" alt="COLUNA OLG">
+            <h3>COLUNA OLG</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>ORIGEM CHINESA</p>
+            <p class="preco">10.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Coluna+OLG" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\Some Renders of Airpods.jfif" alt="NEON AIRPODS X9">
+            <h3>NEON AIRPODS X9</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>SEM FIO COM LED</p>
+            <p class="preco">45.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Neon+Airpods+X9" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\transferir (7).jfif" alt="HOLODESK 360">
+            <h3>HOLODESK 360</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span></div>
+            <p>MESA INTELIGENTE HOLOGRÁFICA</p>
+            <p class="preco">150.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Holodesk+360" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\RipStik Ripster Caster Board.jfif" alt="AERO SKATE DRIFT">
+            <h3>AERO SKATE DRIFT</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>SKATE AERODINÂMICO</p>
+            <p class="preco">95.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Aero+Skate+Drift" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+
+        <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\futuristic modern LED light sport men's shoes.jfif" alt="QUANTUM SNEAKERS">
+            <h3>QUANTUM SNEAKERS</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>TÊNIS COM LUZS LED</p>
+            <p class="preco">62.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Quantum+Sneakers" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+            <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\transferir.webp" alt="Apple Watch Series 9">
+            <h3>Apple Watch Series 9</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>RELOGIO INTELIGENTE</p>
+            <p class="preco">250.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Apple+Watch+Series+9" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+                    <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\transferir (3).jfif" alt="Bike Elétrica Voltz EVS">
+            <h3>Bike Elétrica Voltz EVS</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>BICICLETA ELÉTRICA</p>
+            <p class="preco">150.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=Bike+Elétrica+Voltz+EVS" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+                            <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\78f8d43306630c7c55882a4a4144075d.jpg" alt="iphone 11 normal">
+            <h3>iphone 11 normal</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>SMARTPHONE</p>
+            <p class="preco">250.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=iphone+11+normal" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+                                    <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\19c65aeea40f98ad89e7176c454df95c.webp" alt="iphone 14 normal">
+            <h3>iphone 14 normal</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>SMARTPHONE</p>
+            <p class="preco">450.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=iphone+14+normal" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+                                            <div class="produto">
+            <img src="c:\Users\alberto\Desktop\Projeto Milionário\221a4f31b8601e82722a94afece9ac01.jpg" alt="iphone 17 pro max">
+            <h3>iphone 17 pro max branco</h3>
+            <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p>SMARTPHONE</p>
+            <p class="preco">1.550.000 KZ</p>
+            <a href="https://wa.me/244945213998">COMPRAR</a>
+            <a href="https://www.google.com/search?q=iphone+17+pro+max+branco" target="_blank">+ Info</a>
+            <span class="desconto">Ver Desconto</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Atualizar saldo do usuário
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        if (usuarioLogado) {
+            document.getElementById('saldo').textContent = (usuarioLogado.saldo || 0) + ' KZ';
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
